@@ -2,7 +2,7 @@
 
 namespace AspNetApp.ViewModels
 {
-    public class HomeViewModel
+    public class CarsListViewModel
     {
         public IEnumerable<Car> allCars { get; set; }
 

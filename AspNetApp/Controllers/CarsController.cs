@@ -4,23 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetApp.Controllers
 {
-    public class HomeController : Controller
+    public class CarsController : Controller
     {
         private readonly IAllCars _allCars;
         private readonly ICarsCategory _allCategories;
 
 
-        public HomeController(IAllCars iAllCars, ICarsCategory iCarsCat)
+        public CarsController(IAllCars iAllCars, ICarsCategory iCarsCat)
         {
             _allCars = iAllCars;
             _allCategories = iCarsCat;
 
         }
 
-        public ViewResult Index()
+        public ViewResult List()
         {
             ViewBag.Title = "Страница с автомобилями";
-            HomeViewModel obj = new HomeViewModel();
+            CarsListViewModel obj = new CarsListViewModel();
             obj.allCars = _allCars.Cars;
             obj.currCategory = "Автомобили";
             return View(obj);
