@@ -1,17 +1,26 @@
 using AspNetApp;
 using AspNetApp.interfaces;
-//using AspNetApp.mocks;
+using AspNetApp.Models;
 using AspNetApp.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<IAllCars, CarRepository>();
-builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
-builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDBContent>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString") ?? throw new InvalidOperationException("Connection string 'ConnectionString' not found.")));
 
+
+builder.Services.AddTransient<IAllCars, CarRepository>();
+builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
+builder.Services.AddTransient<IAllOrders,OrdersRepository>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sp => ShopCart.GetCart(sp));
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -29,6 +38,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 
