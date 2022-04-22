@@ -15,6 +15,10 @@ namespace AspNetApp.Controllers
             this.shopCart = shopCart;
         }
 
+        public IActionResult CheckOut()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult CheckOut(Order order)
         {
@@ -23,11 +27,11 @@ namespace AspNetApp.Controllers
             {
                 ModelState.AddModelError("","У вас должны бьыть товары!");
             }
-            if(ModelState.IsValid)
-            {
+           /* if(ModelState.IsValid)
+            {*/
                 allOrders.createOrder(order);
-                return RedirectToAction("Comlete");
-            }
+                return RedirectToAction("Complete");
+            /*}*/
             return View(order);
         }
 

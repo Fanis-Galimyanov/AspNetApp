@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDBContent>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString") ?? throw new InvalidOperationException("Connection string 'ConnectionString' not found.")));
 
-
 builder.Services.AddTransient<IAllCars, CarRepository>();
 builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
 builder.Services.AddTransient<IAllOrders,OrdersRepository>();
