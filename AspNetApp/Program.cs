@@ -2,12 +2,15 @@ using AspNetApp;
 using AspNetApp.interfaces;
 using AspNetApp.Models;
 using AspNetApp.Repository;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDBContent>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString") ?? throw new InvalidOperationException("Connection string 'ConnectionString' not found.")));
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo("DataProtectionKeys"));
 
 builder.Services.AddTransient<IAllCars, CarRepository>();
 builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
