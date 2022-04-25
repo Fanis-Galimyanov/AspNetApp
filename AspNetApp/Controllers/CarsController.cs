@@ -17,9 +17,9 @@ namespace AspNetApp.Controllers
             _allCategories = iCarsCat;
 
         }
-        [Route("{url}")]
-        [Route("Car")]
-        [Route("Car/{url}")]
+        /*[Route("{url}")]*/
+        /*[Route("Car")]
+        [Route("Car/{url}")]*/
         [Route("Cars/List")]
         [Route("Cars/List/{url}")]
         public ViewResult List(string url)
