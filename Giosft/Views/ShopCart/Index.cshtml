@@ -1,0 +1,27 @@
+﻿@model ShopCartViewModel
+
+@if (ViewBag.coincidence)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Внимание!</h4>
+        <p>Вы уже добавили этот товар в корзину! По нашим правилом в корзине не может быть двух наименований одинакового товара.</p>
+        <hr>
+        <p class="mb-0">
+            Может посмотрите что-то еще?
+            <a class="nav-link" asp-controller="Cars" asp-action="List">Ссылка на все товары</a>
+        </p>
+    </div>
+}
+
+@foreach (var el in Model.ShopCartItemS)
+{
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    <b>Автомобиль:</b> @el.car.name <br />
+    <b>Цена:</b> @el.car.price.ToString("c")
+
+    <a class="btn-close" aria-label="Close"
+          asp-controller="ShopCart" asp-action="deleteToCart" asp-route-id="@el.id"></a>
+</div>
+}
+<hr />
+<a class="btn btn-danger" asp-controller="Order" asp-action="Checkout">Оплатить</a>
