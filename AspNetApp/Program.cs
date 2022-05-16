@@ -15,6 +15,7 @@ builder.Services.AddDataProtection()
 builder.Services.AddTransient<IAllCars, CarRepository>();
 builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
 builder.Services.AddTransient<IAllOrders,OrdersRepository>();
+builder.Services.AddTransient<Service>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(sp => ShopCart.GetCart(sp));

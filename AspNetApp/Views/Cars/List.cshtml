@@ -1,5 +1,6 @@
-﻿    <h1>Все автомобили</h1>
-    <h3>@ViewBag.Category</h3>
+﻿@model CarsListViewModel
+
+    <h1>@Model.currCategory</h1>
     <div class="row mt-5 mb-2">
         @{
             foreach (Car car in Model.allCars)

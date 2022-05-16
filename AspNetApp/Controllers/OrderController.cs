@@ -9,10 +9,14 @@ namespace AspNetApp.Controllers
         private readonly IAllOrders allOrders;
         private readonly ShopCart shopCart;
 
-        public OrderController(IAllOrders allOrders, ShopCart shopCart)
+        private readonly ILogger<OrderController> _logger;
+        private readonly Service service;
+
+        public OrderController(IAllOrders allOrders, ShopCart shopCart, Service service)
         {
             this.allOrders = allOrders;
             this.shopCart = shopCart;
+            this.service = service;
         }
 
         public IActionResult CheckOut()
@@ -23,15 +27,19 @@ namespace AspNetApp.Controllers
         public IActionResult CheckOut(Order order)
         {
             shopCart.listShopItems = shopCart.getShopCartItems();
-            if(shopCart.listShopItems.Count == 0)
+
+            if (shopCart.listShopItems.Count == 0)
             {
-                ModelState.AddModelError("","У вас должны бьыть товары!");
+                ModelState.AddModelError("", "У вас должны быть товары!");
             }
-           /* if(ModelState.IsValid)
+
+           /* if (ModelState.IsValid)
             {*/
                 allOrders.createOrder(order);
+                service.SendEmail(order);
                 return RedirectToAction("Complete");
-            /*}*/
+           /* }*/
+
             return View(order);
         }
 

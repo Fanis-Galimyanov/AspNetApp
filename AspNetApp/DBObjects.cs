@@ -65,7 +65,7 @@ namespace AspNetApp
                         longDesc = "Удобный автомобиль для городской жизни",
                         img = "/img/nissan_ev.jpg",
                         price = 14000,
-                        isFavourite = true,
+                        isFavourite = false,
                         available = true,
                         Category = Categories["Электромобили"]
                     },
@@ -76,7 +76,7 @@ namespace AspNetApp
                         longDesc = "Первый серийный российский электромобиль производства «АвтоВАЗа»",
                         img = "/img/lada.jpg",
                         price = 10000,
-                        isFavourite = true,
+                        isFavourite = false,
                         available = true,
                         Category = Categories["Электромобили"]
                     }

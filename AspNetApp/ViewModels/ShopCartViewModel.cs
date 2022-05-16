@@ -4,6 +4,6 @@ namespace AspNetApp.ViewModels
 {
     public class ShopCartViewModel
     {
-        public ShopCart shopCart { get; set; }
+        public List<ShopCartItem> ShopCartItemS { get; set; }
     }
 }

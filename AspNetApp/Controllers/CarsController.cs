@@ -34,10 +34,12 @@ namespace AspNetApp.Controllers
             if(string.Equals("electro",url,StringComparison.OrdinalIgnoreCase))
             {
                 cars = _allCars.Cars.Where(car => car.Category.categoryName.Equals("Электромобили")).OrderBy(car => car.price);
+                currCategory = "Электромобили";
             }
             if(string.Equals("fuel",url, StringComparison.OrdinalIgnoreCase))
             {
                 cars = _allCars.Cars.Where(car => car.Category.categoryName.Equals("Класические автомобильи")).OrderBy(car => car.price);
+                currCategory = "Класические автомобильи";
             }
 
             CarsListViewModel carObj = new CarsListViewModel

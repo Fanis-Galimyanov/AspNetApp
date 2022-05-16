@@ -35,6 +35,16 @@ namespace AspNetApp.Models
             appDBContent.SaveChanges();
         }
 
+        public void DeleteToCart(int id)
+        {
+            appDBContent.ShopCartItems.Remove(new ShopCartItem
+            {
+                id = id
+            });
+
+            appDBContent.SaveChanges();
+        }
+
         public List<ShopCartItem> getShopCartItems()
         {
             return appDBContent.ShopCartItems.Where(c => c.ShopCartId == ShopCartId).Include(c => c.car).ToList();

@@ -1,11 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Site_1.Data.Models;
-using System;
-using System.Collections.Generic;
+﻿using AspNetApp.Models;
 using System.Net;
 using System.Net.Mail;
 
-namespace Site_1
+namespace AspNetApp
 {
     public class Service
     {
@@ -26,13 +23,13 @@ namespace Site_1
 
                 var plainView = AlternateView.CreateAlternateViewFromString("Tesla motors", null, "text/plain");
                 List<string> car_names = new List<string>();
-                List<LinkedResource> car_images = new List<LinkedResource>();        
+                List<LinkedResource> car_images = new List<LinkedResource>();
                 var htmlView = AlternateView.CreateAlternateViewFromString("");
 
                 int index = 0;
                 string htmlView_Line = "";
 
-                foreach (var el in order.orderDetails)
+                foreach (var el in order.orderDeails)
                 {
                     car_images.Add(new LinkedResource("wwwroot" + el.car.img));
                     car_images[index].ContentId = "ID" + el.id;
@@ -40,15 +37,15 @@ namespace Site_1
                     index++;
                 }
 
-               htmlView = AlternateView.CreateAlternateViewFromString(htmlView_Line, null, "text/html");
-                
+                htmlView = AlternateView.CreateAlternateViewFromString(htmlView_Line, null, "text/html");
+
                 index = 0;
-                foreach (var el in order.orderDetails)
+                foreach (var el in order.orderDeails)
                 {
-                    htmlView.LinkedResources.Add(car_images[index]); 
+                    htmlView.LinkedResources.Add(car_images[index]);
                     index++;
                 }
-                    
+
 
                 message.AlternateViews.Add(plainView);
                 message.AlternateViews.Add(htmlView);
@@ -63,7 +60,7 @@ namespace Site_1
                     client.Send(message);
                     logger.LogInformation("Сообщение отправлено успешно!");
                 }
-                                 
+
             }
             catch (Exception e)
             {

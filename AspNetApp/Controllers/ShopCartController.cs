@@ -16,25 +16,53 @@ namespace AspNetApp.Controllers
             _shopCart = shopCart;
         }
 
-        public ViewResult Index()
+        public ViewResult Index(bool coincidence = false)
         {
-            _shopCart.listShopItems = _shopCart.getShopCartItems();
+            ShopCartViewModel ShopCartItemS = new ShopCartViewModel()
+            { ShopCartItemS = _shopCart.getShopCartItems() };
 
-            var obj = new ShopCartViewModel
-            {
-                shopCart = _shopCart
-            };
+            ViewBag.coincidence = coincidence;
 
-            return View(obj);
+            return View(ShopCartItemS);
         }
 
         public RedirectToActionResult addToCart(int id)
         {
-            var item = _carRep.Cars.FirstOrDefault(i => i.id == id);
-            if (item != null)
+            bool coincidence = false;
+
+            if (_carRep.Cars.FirstOrDefault(i => i.id == id) != null)
             {
-                _shopCart.AddToCart(item);
+                _shopCart.listShopItems = _shopCart.getShopCartItems();
+
+                foreach (var el in _shopCart.listShopItems)
+                {
+                    if (el.car.id == id)
+                    {
+                        coincidence = true;
+                        break;
+                    }
+                }
+
+                if (!coincidence)
+                    _shopCart.AddToCart(_carRep.Cars.FirstOrDefault(i => i.id == id));
+
             }
+
+            if (coincidence)
+            {
+                return RedirectToAction("Index", new { coincidence = true });
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+        }
+        public RedirectToActionResult deleteToCart(int id)
+        {
+
+            _shopCart.DeleteToCart(id);
+
             return RedirectToAction("Index");
         }
     }
